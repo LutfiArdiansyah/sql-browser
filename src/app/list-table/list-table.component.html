@@ -1,0 +1,34 @@
+<form clrForm (submit)="onSubmit()" ngNativeValidate>
+  <clr-select-container>
+    <label>Environment</label>
+    <select
+      clrSelect
+      name="env"
+      [(ngModel)]="env"
+      required
+      (change)="onChangeEnv()"
+    >
+      <option value="1">Development</option>
+      <option value="@TO_PROD">Production</option>
+    </select>
+    <clr-control-error>This field is required!</clr-control-error>
+  </clr-select-container>
+  <clr-select-container>
+    <label>Owner</label>
+    <select clrSelect name="owner" [(ngModel)]="owner" required>
+      <option *ngFor="let item of listOwner" [value]="item.USERNAME">{{
+        item.USERNAME
+      }}</option>
+    </select>
+    <clr-control-error>This field is required!</clr-control-error>
+  </clr-select-container>
+  <br />
+  <div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </div>
+</form>
+<app-reusable-table
+  *ngIf="listData.length > 0"
+  [data]="listData"
+  [column]="listColumn"
+></app-reusable-table>

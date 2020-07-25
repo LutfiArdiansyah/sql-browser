@@ -1,0 +1,27 @@
+<clr-main-container>
+  <clr-header>
+    <div class="header-nav" [clr-nav-level]="1"></div>
+  </clr-header>
+  <div class="content-container">
+    <clr-vertical-nav
+      [clrVerticalNavCollapsible]="isCollaps"
+      [clr-nav-level]="1"
+    >
+      <a
+        clrVerticalNavLink
+        routerLinkActive="active"
+        *ngFor="let data of listMenu"
+        [routerLink]="data.route"
+      >
+        <clr-icon [attr.shape]="data.icon" clrVerticalNavIcon></clr-icon>
+        {{ data.name }}
+      </a>
+    </clr-vertical-nav>
+
+    <div class="content-area">
+      <div class="card">
+        <div class="card-block"><router-outlet></router-outlet></div>
+      </div>
+    </div>
+  </div>
+</clr-main-container>

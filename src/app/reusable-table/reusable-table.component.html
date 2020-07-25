@@ -1,0 +1,27 @@
+<clr-datagrid *ngIf="listData.length > 0">
+  <clr-dg-column>No.</clr-dg-column>
+  <clr-dg-column
+    *ngFor="let item of column"
+    [clrDgField]="item"
+    clrDgSortOrder="ascSort"
+  >
+    <ng-container *clrDgHideableColumn="{ hidden: false }">
+      {{ item }}
+    </ng-container></clr-dg-column
+  >
+
+  <clr-dg-row *clrDgItems="let data of listData; index as i" [clrDgItem]="data">
+    <clr-dg-cell>{{ i + 1 }}</clr-dg-cell>
+    <clr-dg-cell *ngFor="let item2 of column">{{ data[item2] }}</clr-dg-cell>
+  </clr-dg-row>
+
+  <clr-dg-footer>
+    <clr-dg-pagination #pagination [clrDgPageSize]="10">
+      <clr-dg-page-size [clrPageSizeOptions]="[10, 20, 50, 100]"
+        >Data per page</clr-dg-page-size
+      >
+      {{ pagination.firstItem + 1 }} - {{ pagination.lastItem + 1 }} of
+      {{ pagination.totalItems }} data
+    </clr-dg-pagination>
+  </clr-dg-footer>
+</clr-datagrid>

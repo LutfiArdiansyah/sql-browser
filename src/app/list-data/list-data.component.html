@@ -1,0 +1,67 @@
+<form clrForm (submit)="onSubmit()" ngNativeValidate>
+  <clr-select-container>
+    <label>Search Type</label>
+    <select
+      clrSelect
+      name="searchType"
+      [(ngModel)]="searchType"
+      required
+      (change)="listData = []; listColumn = []"
+    >
+      <option value="1">Standar</option>
+      <option value="2">Custom</option>
+    </select>
+    <clr-control-error>This field is required!</clr-control-error>
+  </clr-select-container>
+  <clr-select-container *ngIf="searchType == '1'">
+    <label>Environment</label>
+    <select
+      clrSelect
+      name="env"
+      [(ngModel)]="env"
+      required
+      (change)="onChangeEnv()"
+    >
+      <option value="1">Development</option>
+      <option value="@TO_PROD">Production</option>
+    </select>
+    <clr-control-error>This field is required!</clr-control-error>
+  </clr-select-container>
+  <clr-select-container *ngIf="searchType == '1'">
+    <label>Owner</label>
+    <select
+      clrSelect
+      name="owner"
+      [(ngModel)]="owner"
+      required
+      (change)="onChangeOwner()"
+    >
+      <option *ngFor="let item of listOwner" [value]="item.USERNAME">{{
+        item.USERNAME
+      }}</option>
+    </select>
+    <clr-control-error>This field is required!</clr-control-error>
+  </clr-select-container>
+  <clr-select-container *ngIf="searchType == '1'">
+    <label>Table</label>
+    <select clrSelect name="table" [(ngModel)]="table" required>
+      <option *ngFor="let item of listTable" [value]="item.OBJECT_NAME">{{
+        item.OBJECT_NAME
+      }}</option>
+    </select>
+    <clr-control-error>This field is required!</clr-control-error>
+  </clr-select-container>
+  <clr-textarea-container *ngIf="searchType == '2'">
+    <label>Query</label>
+    <textarea clrTextarea [(ngModel)]="query" name="query" required></textarea>
+  </clr-textarea-container>
+  <br />
+  <div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </div>
+</form>
+<app-reusable-table
+  *ngIf="listData.length > 0"
+  [data]="listData"
+  [column]="listColumn"
+></app-reusable-table>
